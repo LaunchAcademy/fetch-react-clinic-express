@@ -37,12 +37,12 @@ app.get("/", (req, res) => {
   res.send("Hello from the backend")
 })
 
-app.get("/api/v1/bikes", (req, res) => {
+app.get("/api/v1/bikes.json", (req, res) => {
   const jsonString = fs.readFileSync(path.join(__dirname, "../bikes.json")).toString()
   res.json(JSON.parse(jsonString))
 })
 
-app.post("/api/v1/bikes", (req, res) => {
+app.post("/api/v1/bikes.json", (req, res) => {
   const {make, year, model} = req.body
   if (make && year && model){
     const newBike = {

@@ -12,11 +12,42 @@ class BikesContainer extends Component {
   }
 
   addNewBike(bikePayload) {
-
+    fetch("/api/v1/bikes.json", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(bikePayload)
+    }).then((resp) => {
+      if(resp.ok) {
+        return resp.json()
+      }
+      else {
+        throw new Error(resp.text())
+      }
+    }).then((bikeJson) => {
+      this.setState({bikes: this.state.bikes.concat(bikeJson.bike)})
+    }).catch(err => {
+      alert(err)
+    })
+    return true
   }
 
   componentDidMount() {
-    
+    fetch("/api/v1/bikes.json", {
+      headers: {"Content-Type": "application/json"},
+      credentials: "same-origin"
+    })
+      .then(resp => {
+        if(resp.ok) {
+          return resp.json()
+        }
+        else {
+          throw new Error(resp.body)
+        }
+      })
+      .then(payload => {
+        this.setState({bikes: payload.bikes})
+      })
   }
 
   render() {

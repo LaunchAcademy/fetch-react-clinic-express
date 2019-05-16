@@ -41,8 +41,10 @@ class FormContainer extends Component {
       year: parseInt(this.state.bikeYear, 10),
       model: this.state.bikeModel
     }
-    this.props.addNewBike(payload)
-    this.clearForm()
+
+    if(this.props.addNewBike(payload)) {
+      this.clearForm()
+    }
   }
 
   clearForm() {
@@ -61,19 +63,19 @@ class FormContainer extends Component {
             label="Bike Make"
             name="bikeMake"
             value={this.state.bikeMake}
-            handleChange={this.handleChange}
+            handleChange={this.handleMakeChange}
           />
           <InputField
             label="Bike Model"
             name="bikeModel"
             value={this.state.bikeModel}
-            handleChange={this.handleChange}
+            handleChange={this.handleModelChange}
           />
           <InputField
             label="Bike Year"
             name="bikeYear"
             value={this.state.bikeYear}
-            handleChange={this.handleChange}
+            handleChange={this.handleYearChange}
           />
           <input type="submit" className="button" />
         </form>
